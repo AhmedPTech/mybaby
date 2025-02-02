@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabrina - Be My Valentine</title>
+    <style>
+        body {
+            background: #ff99cc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Pacifico', cursive;
+            background-image: linear-gradient(45deg, #ff6699, #ff99cc);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(255, 0, 85, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        h1 {
+            color: #ff0066;
+            font-size: 3.5em;
+            margin: 20px 0;
+        }
+
+        .images {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .images img {
+            width: 150px; /* Adjust size */
+            height: 150px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .images img:hover {
+            transform: scale(1.1);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #yesBtn {
+            background: #ff0066;
+            color: white;
+        }
+
+        #noBtn {
+            background: #ff99cc;
+            color: white;
+        }
+
+        #noBtn:hover {
+            transform: translate(10px, -10px);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sabrina, Will You Be My Valentine? 💘</h1>
+        
+        <!-- Image Section -->
+        <div class="images">
+            <img src="images/sabrina1.jpg" alt="Sabrina 1"> <!-- First image -->
+            <img src="images/sabrina2.jpg" alt="Sabrina 2"> <!-- Second image -->
+            <img src="images/sabrina3.jpg" alt="Sabrina 3"> <!-- Third image -->
+        </div>
+
+        <div class="buttons">
+            <button id="yesBtn" onclick="respondYes()">YES! 💖</button>
+            <button id="noBtn" onmouseover="dodgeButton()" onclick="playfulNo()">NO 😔</button>
+        </div>
+
+        <div id="secretMessage" style="display: none; margin-top: 20px; color: #ff0066;">
+            <h2>You just made my heart soar! 🥰</h2>
+            <p>Check your phone for a special surprise... 📱💌</p>
+        </div>
+    </div>
+
+    <script>
+        function respondYes() {
+            // Create floating hearts
+            for(let i = 0; i < 50; i++) {
+                createHeart();
+            }
+            document.getElementById('secretMessage').style.display = 'block';
+        }
+
+        function createHeart() {
+            const heart = document.createElement('span');
+            heart.innerHTML = '💖';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        function dodgeButton() {
+            const noBtn = document.getElementById('noBtn');
+            noBtn.style.transform = `translate(${Math.random() * 50 - 25}px, ${Math.random() * 50 - 25}px)`;
+        }
+
+        function playfulNo() {
+            alert("NUH YOU'RE MINE. TRY AGAIN!");
+        }
+    </script>
+</body>
+</html>
