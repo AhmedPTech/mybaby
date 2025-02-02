@@ -41,7 +41,7 @@
         }
 
         .images img {
-            width: 150px; /* Adjust size */
+            width: 150px;
             height: 150px;
             object-fit: cover;
             border-radius: 15px;
@@ -72,15 +72,18 @@
         #yesBtn {
             background: #ff0066;
             color: white;
+            font-size: 1.5em;
         }
 
         #noBtn {
             background: #ff99cc;
             color: white;
+            font-size: 1.2em;
         }
 
-        #noBtn:hover {
-            transform: translate(10px, -10px);
+        #yesBtn.grow {
+            transform: scale(1.1);
+            font-size: calc(1.5em + 0.1em);
         }
 
         @keyframes float {
@@ -93,16 +96,15 @@
     <div class="container">
         <h1>Sabrina, Will You Be My Valentine? 💘</h1>
         
-        <!-- Image Section -->
-<div class="images">
-    <img src="sabrina1.jpg" alt="Sabrina 1"> <!-- First image -->
-    <img src="sabrina2.jpg" alt="Sabrina 2"> <!-- Second image -->
-    <img src="sabrina3.jpg" alt="Sabrina 3"> <!-- Third image -->
-</div>
+        <div class="images">
+            <img src="sabrina1.jpg" alt="Sabrina 1">
+            <img src="sabrina2.jpg" alt="Sabrina 2">
+            <img src="sabrina3.jpg" alt="Sabrina 3">
+        </div>
 
         <div class="buttons">
             <button id="yesBtn" onclick="respondYes()">YES! 💖</button>
-            <button id="noBtn" onmouseover="dodgeButton()" onclick="playfulNo()">NO 😔</button>
+            <button id="noBtn" onclick="progressiveNo()">NO 😔</button>
         </div>
 
         <div id="secretMessage" style="display: none; margin-top: 20px; color: #ff0066;">
@@ -112,9 +114,19 @@
     </div>
 
     <script>
+        let noButtonTexts = [
+            "Try Again 😏",
+            "Are You Sure? 🤔",
+            "Really? 🥺",
+            "Stop Joking 😘",
+            "I Know You Love Me 💖",
+            "MINE. 💍"
+        ];
+        let noButtonIndex = 0;
+
         function respondYes() {
             // Create floating hearts
-            for(let i = 0; i < 50; i++) {
+            for (let i = 0; i < 50; i++) {
                 createHeart();
             }
             document.getElementById('secretMessage').style.display = 'block';
@@ -123,19 +135,29 @@
         function createHeart() {
             const heart = document.createElement('span');
             heart.innerHTML = '💖';
+            heart.style.position = 'absolute';
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.top = 0;
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 5000);
         }
 
-        function dodgeButton() {
+        function progressiveNo() {
             const noBtn = document.getElementById('noBtn');
-            noBtn.style.transform = `translate(${Math.random() * 50 - 25}px, ${Math.random() * 50 - 25}px)`;
-        }
+            const yesBtn = document.getElementById('yesBtn');
+            
+            // Change the text of the "NO" button
+            if (noButtonIndex < noButtonTexts.length) {
+                noBtn.innerText = noButtonTexts[noButtonIndex];
+                noButtonIndex++;
+            } else {
+                noBtn.innerText = "❤️ You're MINE ❤️";
+            }
 
-        function playfulNo() {
-            alert("NUH YOU'RE MINE. TRY AGAIN!");
+            // Make the "YES" button grow
+            yesBtn.classList.add('grow');
+            setTimeout(() => yesBtn.classList.remove('grow'), 300);
         }
     </script>
 </body>
